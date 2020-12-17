@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,24 +9,19 @@
     tools:context=".WeatherActivity"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabIndicatorColor="@android:color/holo_purple"
+        app:tabSelectedTextColor="@android:color/black"
+        android:background="@color/colorPrimary"/>
 
-        <fragment
-            android:name="vn.edu.usth.weather.WeatherFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <fragment
-            android:name="vn.edu.usth.weather.ForecastFragment"
-            android:id="@+id/fragment_forecast"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
 
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

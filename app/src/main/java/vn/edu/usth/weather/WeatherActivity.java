@@ -10,6 +10,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
 public class WeatherActivity extends AppCompatActivity {
 
     private static final String TAG = "WeatherActivity";
@@ -24,6 +28,12 @@ public class WeatherActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         ForecastFragment firstFragment = new ForecastFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, firstFragment).commit();
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("HANOI,VIETNAM");
+        arrayList.add("PARIS,FRANCE");
+        arrayList.add("TOULOUSE,FRANCE");
 
         PagerAdapter adapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
