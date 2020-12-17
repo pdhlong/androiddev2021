@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeatherActivity">
+    tools:context=".WeatherActivity"
+    android:orientation="vertical" >
 
-    <include layout="@layout/fragment_forecast" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <fragment
+            android:name="vn.edu.usth.weather.WeatherFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <fragment
+            android:name="vn.edu.usth.weather.ForecastFragment"
+            android:id="@+id/fragment_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</FrameLayout>
