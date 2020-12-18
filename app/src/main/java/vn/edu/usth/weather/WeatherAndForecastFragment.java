@@ -38,7 +38,7 @@ public class WeatherAndForecastFragment1 extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static WeatherAndForecastFragment1 newInstance(String param1, String param2) {
-        WeatherAndForecastFragment1 fragment = new WeatherAndForecastFragment1();
+        WeatherAndForecastFragment1 fragment = new WeatherAndForecastFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
