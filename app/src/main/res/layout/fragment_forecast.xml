@@ -44,7 +44,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="My Tho \n24C - 31C" />
+                android:text="My Tho\n24C - 31C" />
 
         </LinearLayout>
 
@@ -79,7 +79,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Dak Lak \n24C - 31C" />
+                android:text="Dak Lak\n24C - 31C" />
 
         </LinearLayout>
 
@@ -114,7 +114,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Dak Nong \n24C - 31C" />
+                android:text="Dak Nong\n24C - 31C" />
 
         </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Wuhan \n24C - 31C" />
+                android:text="Wuhan\n24C - 31C" />
 
         </LinearLayout>
 
@@ -184,7 +184,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Buon Me Thuot \n24C - 31C" />
+                android:text="Buon Me Thuot\n24C - 31C" />
 
         </LinearLayout>
 
@@ -219,7 +219,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Bac Kan \n24C - 31C" />
+                android:text="Bac Kan\n24C - 31C" />
 
         </LinearLayout>
 
@@ -254,7 +254,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="3"
                 android:textSize="18dp"
-                android:text="Kon Tum \n24C - 31C" />
+                android:text="Kon Tum\n24C - 31C" />
 
         </LinearLayout>
 
