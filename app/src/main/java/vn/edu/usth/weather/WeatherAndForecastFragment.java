@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WeatherAndForecastFragment1#newInstance} factory method to
+ * Use the {@link WeatherAndForecastFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeatherAndForecastFragment1 extends Fragment {
+public class WeatherAndForecastFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class WeatherAndForecastFragment1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public WeatherAndForecastFragment1() {
+    public WeatherAndForecastFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class WeatherAndForecastFragment1 extends Fragment {
      * @return A new instance of fragment WeatherAndForecastFragment1.
      */
     // TODO: Rename and change types and number of parameters
-    public static WeatherAndForecastFragment1 newInstance(String param1, String param2) {
-        WeatherAndForecastFragment1 fragment = new WeatherAndForecastFragment();
+    public static WeatherAndForecastFragment newInstance(String param1, String param2) {
+        WeatherAndForecastFragment fragment = new WeatherAndForecastFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,7 +58,7 @@ public class WeatherAndForecastFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_weather_and_forecast1, container, false);
+        View view = inflater.inflate(R.layout.fragment_weather_and_forecast, container, false);
         return view;
     }
 }
