@@ -6,20 +6,27 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
+import java.io.FileNotFoundException;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    MediaPlayer mp;
     Toolbar toolbar;
     private static final String TAG = "WeatherActivity";
 
@@ -50,6 +57,7 @@ public class WeatherActivity extends AppCompatActivity {
         arrayList.add("TOULOUSE,FRANCE");
         tabLayout.setupWithViewPager(pager);
 
+        mp = MediaPlayer.create(this, R.raw.song);
     }
 
     @Override
@@ -82,6 +90,7 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart: ");
+        mp.start();
     }
 
     @Override
@@ -94,12 +103,14 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause: ");
+        mp.pause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop: ");
+        mp.stop();
     }
 
     @Override
@@ -108,5 +119,26 @@ public class WeatherActivity extends AppCompatActivity {
         Log.i(TAG, "onDestroy: ");
     }
 
+    private void copy(int resourceID, String resourceName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() + "/Android/" + resourceName;
+        try {
+            InputStream is = getResources().openRawResource(resourceID);
+            FileOutputStream out = new FileOutputStream(path);
+            byte[] buff = new byte[1024];
+            int read = 0;
+            try {
+                while ((read = is.read(buff)) > 0) {
+                    out.write(buff, 0, read);
+                }
+            } finally {
+                is.close();
+                out.close();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 }
 
