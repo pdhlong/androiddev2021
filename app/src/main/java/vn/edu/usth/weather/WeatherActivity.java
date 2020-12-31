@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -60,33 +61,32 @@ public class WeatherActivity extends AppCompatActivity {
         arrayList.add("TOULOUSE,FRANCE");
         tabLayout.setupWithViewPager(pager);
 
-        mp = MediaPlayer.create(this, R.raw.song);
-
-        final Handler handler = new Handler(Looper.getMainLooper()) {
+        AsyncTask<String, Integer, String> task = new AsyncTask<String, Integer, String>() {
             @Override
-            public void handleMessage(Message msg) {
-                String content = msg.getData().getString("server_response");
-                Toast.makeText(getBaseContext(), content, Toast.LENGTH_SHORT).show();
+            protected void onPreExecute() {
+                
             }
-        };
-
-        Thread t = new Thread(new Runnable() {
             @Override
-            public void run() {
+            protected String doInBackground(String... params) {
                 try {
                     Thread.sleep(5000);
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Bundle bundle = new Bundle();
-                bundle.putString("server_response", "some sample json here");
-                Message msg = new Message();
-                msg.setData(bundle);
-                handler.sendMessage(msg);
+                return null;
             }
-        });
-        t.start();
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+
+            }
+            @Override
+            protected void onPostExecute(String string) {
+                Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+            }
+        };
+        task.execute("some sample json here");
+
     }
 
     @Override
@@ -119,7 +119,6 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart: ");
-        mp.start();
     }
 
     @Override
@@ -132,14 +131,12 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause: ");
-        mp.pause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop: ");
-        mp.stop();
     }
 
     @Override
