@@ -35,6 +35,10 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -85,39 +89,23 @@ public class WeatherActivity extends AppCompatActivity {
         String msg = "";
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
-                    @Override
-                    protected Bitmap doInBackground(String... strings) {
-                        Bitmap bitmap = null;
-                        InputStream inputStream = null;
-                        try{
-                            URL url = new URL("https://usth.edu.vn/uploads/logo_moi-eng.png");
-                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                            connection.setRequestMethod("GET");
-                            connection.setDoInput(true);
-                            connection.connect();
-                            int response = connection.getResponseCode();
-                            Log.i("USTHWeather", "The response is: " + response);
-                            inputStream = connection.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(inputStream);
-                            connection.disconnect();
-                        } catch (ProtocolException e) {
-                            e.printStackTrace();
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return bitmap;
-                    }
+                RequestQueue queue = Volley.newRequestQueue(getBaseContext());
 
-                    @Override
-                    protected void onPostExecute(Bitmap bitmap) {
-                        ImageView logo = (ImageView) findViewById(R.id.logo);
-                        logo.setImageBitmap(bitmap);
-                    }
+                Response.Listener<Bitmap> listener =
+                        new Response.Listener<Bitmap>() {
+                            @Override
+                            public void onResponse(Bitmap response) {
+                                ImageView iv = (ImageView) findViewById(R.id.logo);
+                                iv.setImageBitmap(response);
+                            }
+                        };
 
-                };
+                ImageRequest imageRequest = new ImageRequest(
+                        "http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png",
+                        listener, 0, 0, ImageView.ScaleType.CENTER,
+                        Bitmap.Config.ARGB_8888,null);
+
+                queue.add(imageRequest);
             case R.id.action_setting:
                 msg = "Setting";
                 Intent intent = new Intent(this,PrefActivity.class);
