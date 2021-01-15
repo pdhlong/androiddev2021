@@ -5,7 +5,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -16,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.FileNotFoundException;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +30,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -33,6 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
     MediaPlayer mp;
     Toolbar toolbar;
     private static final String TAG = "WeatherActivity";
+    private static final String LOGO_URL = "https://usth.edu.vn/uploads/logo_moi-eng.png";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,31 +70,7 @@ public class WeatherActivity extends AppCompatActivity {
         arrayList.add("TOULOUSE,FRANCE");
         tabLayout.setupWithViewPager(pager);
 
-        AsyncTask<String, Integer, String> task = new AsyncTask<String, Integer, String>() {
-            @Override
-            protected void onPreExecute() {
-                
-            }
-            @Override
-            protected String doInBackground(String... params) {
-                try {
-                    Thread.sleep(5000);
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-            @Override
-            protected void onProgressUpdate(Integer... values) {
 
-            }
-            @Override
-            protected void onPostExecute(String string) {
-                Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
-            }
-        };
-        task.execute("some sample json here");
 
     }
 
@@ -100,8 +85,39 @@ public class WeatherActivity extends AppCompatActivity {
         String msg = "";
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                msg = "Refreshing...";
-                break;
+                AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
+                    @Override
+                    protected Bitmap doInBackground(String... strings) {
+                        Bitmap bitmap = null;
+                        InputStream inputStream = null;
+                        try{
+                            URL url = new URL("https://usth.edu.vn/uploads/logo_moi-eng.png");
+                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                            connection.setRequestMethod("GET");
+                            connection.setDoInput(true);
+                            connection.connect();
+                            int response = connection.getResponseCode();
+                            Log.i("USTHWeather", "The response is: " + response);
+                            inputStream = connection.getInputStream();
+                            bitmap = BitmapFactory.decodeStream(inputStream);
+                            connection.disconnect();
+                        } catch (ProtocolException e) {
+                            e.printStackTrace();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return bitmap;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Bitmap bitmap) {
+                        ImageView logo = (ImageView) findViewById(R.id.logo);
+                        logo.setImageBitmap(bitmap);
+                    }
+
+                };
             case R.id.action_setting:
                 msg = "Setting";
                 Intent intent = new Intent(this,PrefActivity.class);

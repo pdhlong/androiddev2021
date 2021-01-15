@@ -1,5 +1,8 @@
 package vn.edu.usth.weather;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,4 +64,5 @@ public class WeatherAndForecastFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_weather_and_forecast, container, false);
         return view;
     }
+
 }
